@@ -13,10 +13,18 @@ class _MyAppFormState extends State<MyAppForm> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 122, 70, 89),
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 90.0),
         children: <Widget>[
-          CircleAvatar(
-            radius: 100.0,
-            backgroundColor: const Color.fromARGB(255, 215, 175, 175),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 100.0,
+                backgroundColor: const Color.fromARGB(255, 215, 175, 175),
+                backgroundImage: AssetImage('images/foto1.png'),
+              ),
+              Text('Login')
+            ],
           )
         ],
       ),
