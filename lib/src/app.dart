@@ -12,6 +12,7 @@ class _MyAppFormState extends State<MyAppForm> {
   String _apellido = '';
   String _username = '';
   String _password = '';
+  String _email = '';
   bool _isLoggedIn = false;
 
   void _onNombreChanged(String valor) {
@@ -38,9 +39,17 @@ class _MyAppFormState extends State<MyAppForm> {
     });
   }
 
+  void _onEmailChanged(String valor) {
+    setState(() {
+      _email = valor;
+    });
+  }
+
   void _submitForm() {
     // Simulamos una verificación de credenciales.
-    if (_username == 'usuario' && _password == 'contraseña') {
+    if (_username == 'usuario' &&
+        _password == 'contraseña' &&
+        _email == 'correo@ejemplo.com') {
       setState(() {
         _isLoggedIn = true;
       });
@@ -80,18 +89,25 @@ class _MyAppFormState extends State<MyAppForm> {
               ),
               if (!_isLoggedIn) ...[
                 TextField(
+                  enableInteractiveSelection: false,
+                  decoration: InputDecoration(
+                    hintText: 'Nombre de usuario',
+                    labelText: 'Nombre de usuario',
+                    suffixIcon: Icon(Icons.verified_user),
+                    border: OutlineInputBorder(),
+                  ),
                   onChanged: _onNombreChanged,
                 ),
                 TextField(
                   enableInteractiveSelection: false,
                   textCapitalization: TextCapitalization.none,
                   decoration: InputDecoration(
-                    hintText: 'Nombre de usuario',
-                    labelText: 'Nombre de usuario',
-                    suffixIcon: Icon(Icons.person),
+                    hintText: 'Correo electrónico',
+                    labelText: 'Correo electrónico',
+                    suffixIcon: Icon(Icons.email),
                     border: OutlineInputBorder(),
                   ),
-                  onChanged: _onUsernameChanged,
+                  onChanged: _onEmailChanged,
                 ),
                 TextField(
                   enableInteractiveSelection: false,
