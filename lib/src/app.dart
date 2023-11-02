@@ -8,10 +8,53 @@ class MyAppForm extends StatefulWidget {
 }
 
 class _MyAppFormState extends State<MyAppForm> {
+  String _nombre = '';
+  String _apellido = '';
+  String _username = '';
+  String _password = '';
+  bool _isLoggedIn = false;
+
+  void _onNombreChanged(String valor) {
+    setState(() {
+      _nombre = valor;
+    });
+  }
+
+  void _onApellidoChanged(String valor) {
+    setState(() {
+      _apellido = valor;
+    });
+  }
+
+  void _onUsernameChanged(String valor) {
+    setState(() {
+      _username = valor;
+    });
+  }
+
+  void _onPasswordChanged(String valor) {
+    setState(() {
+      _password = valor;
+    });
+  }
+
+  void _submitForm() {
+    // Simulamos una verificación de credenciales.
+    if (_username == 'usuario' && _password == 'contraseña') {
+      setState(() {
+        _isLoggedIn = true;
+      });
+    } else {
+      setState(() {
+        _isLoggedIn = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 122, 70, 89),
+      backgroundColor: Color.fromARGB(219, 230, 228, 250),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 90.0),
         children: <Widget>[
@@ -20,12 +63,56 @@ class _MyAppFormState extends State<MyAppForm> {
             children: [
               CircleAvatar(
                 radius: 100.0,
-                backgroundColor: const Color.fromARGB(255, 215, 175, 175),
+                backgroundColor: Color.fromARGB(138, 140, 223, 227),
                 backgroundImage: AssetImage('images/foto1.png'),
               ),
-              Text('Login')
+              Text(
+                'LOGIN',
+                style: TextStyle(fontFamily: 'cursive', fontSize: 40.0),
+              ),
+              Text(
+                'Bienvenido',
+                style: TextStyle(fontFamily: 'cursive', fontSize: 20.0),
+              ),
+              SizedBox(
+                width: 160.0,
+                height: 15.0,
+              ),
+              if (!_isLoggedIn) ...[
+                TextField(
+                  onChanged: _onNombreChanged,
+                ),
+                TextField(
+                  enableInteractiveSelection: false,
+                  textCapitalization: TextCapitalization.none,
+                  decoration: InputDecoration(
+                    hintText: 'Nombre de usuario',
+                    labelText: 'Nombre de usuario',
+                    suffixIcon: Icon(Icons.person),
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: _onUsernameChanged,
+                ),
+                TextField(
+                  enableInteractiveSelection: false,
+                  textCapitalization: TextCapitalization.none,
+                  decoration: InputDecoration(
+                    hintText: 'Contraseña',
+                    labelText: 'Contraseña',
+                    suffixIcon: Icon(Icons.lock),
+                    border: OutlineInputBorder(),
+                  ),
+                  obscureText: true,
+                  onChanged: _onPasswordChanged,
+                ),
+                ElevatedButton(
+                  onPressed: _submitForm,
+                  child: Text('Iniciar sesión'),
+                ),
+              ] else
+                Text('¡Bienvenido, $_nombre $_apellido!'),
             ],
-          )
+          ),
         ],
       ),
     );
